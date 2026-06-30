@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Standings | worldcupgolazo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --gold: #D4AF37;
+            --gold-light: #F5E07B;
+            --bg-primary: #FFFAF5;
+            --bg-secondary: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5A5A5A;
+            --border: #E8E3D4;
+            --shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .dark {
+            --bg-primary: #1A1A2E;
+            --bg-secondary: #252540;
+            --text-primary: #F0EEE6;
+            --text-secondary: #B0AFA0;
+            --border: #3A3A50;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background: var(--bg-primary); color: var(--text-primary); transition: 0.3s; }
+        .navbar { background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 14px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; color: var(--gold); text-decoration: none; }
+        .nav-links { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--gold); }
+        .dark-toggle { background: var(--bg-secondary); border: 1px solid var(--border); padding: 8px 16px; border-radius: 50px; cursor: pointer; color: var(--text-primary); font-weight: 600; font-size: 0.85rem; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 24px; }
+        h1 { font-family: var(--font-heading); font-size: clamp(2.2rem, 5vw, 3rem); text-align: center; margin-bottom: 8px; color: var(--gold); }
+        .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 36px; font-size: 1rem; }
+        .groups-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .group-card { background: var(--bg-secondary); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); transition: 0.3s; }
+        .group-card:hover { transform: translateY(-4px); }
+        .group-header { background: linear-gradient(135deg, var(--gold), var(--gold-light)); padding: 14px 22px; font-family: var(--font-heading); font-weight: 800; font-size: 1.2rem; color: #1A1A1A; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 10px 14px; font-weight: 600; color: var(--text-secondary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+        td { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background: rgba(0,0,0,0.02); }
+        .dark tr:nth-child(even) { background: rgba(255,255,255,0.03); }
+        .points { font-weight: 700; color: var(--gold); }
+        .cta-section { text-align: center; margin-top: 40px; }
+        .cta-button { display: inline-block; background: linear-gradient(135deg, #B8960F, var(--gold), var(--gold-light)); color: #1A1A1A; padding: 14px 36px; border-radius: 50px; font-weight: 700; text-decoration: none; transition: 0.3s; }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212,175,55,0.4); }
+        @media (max-width: 480px) { .groups-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="nav-logo">⚽ worldcupgolazo</a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="bracket.html">Bracket</a>
+            <a href="travel.html">Travel</a>
+            <a href="history.html">History</a>
+            <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Group Standings</h1>
+        <p class="subtitle">12 Groups · 48 Teams · The Road to the Knockouts</p>
+        <div class="groups-grid" id="groupsContainer"></div>
+        <div class="cta-section">
+            <a href="bracket.html" class="cta-button">🏆 Simulate Knockouts</a>
+        </div>
+    </div>
+    <script>
+        const groupData = {
+            'A': [{ team: 'Mexico', p: 3, gd: '+6', pts: 9 },{ team: 'South Africa', p: 3, gd: '-1', pts: 4 },{ team: 'Korea Republic', p: 3, gd: '-1', pts: 3 },{ team: 'Czechia', p: 3, gd: '-4', pts: 1 }],
+            'B': [{ team: 'Switzerland', p: 3, gd: '+4', pts: 7 },{ team: 'Canada', p: 3, gd: '+5', pts: 4 },{ team: 'Bosnia & Herz.', p: 3, gd: '-1', pts: 4 },{ team: 'Qatar', p: 3, gd: '-8', pts: 1 }],
+            'C': [{ team: 'Brazil', p: 3, gd: '+6', pts: 7 },{ team: 'Morocco', p: 3, gd: '+3', pts: 7 },{ team: 'Scotland', p: 3, gd: '-3', pts: 3 },{ team: 'Haiti', p: 3, gd: '-6', pts: 0 }],
+            'D': [{ team: 'USA', p: 3, gd: '+4', pts: 6 },{ team: 'Australia', p: 3, gd: '0', pts: 4 },{ team: 'Paraguay', p: 3, gd: '-2', pts: 4 },{ team: 'Turkey', p: 3, gd: '-2', pts: 3 }],
+            'E': [{ team: 'Germany', p: 3, gd: '+6', pts: 6 },{ team: 'Ivory Coast', p: 3, gd: '+2', pts: 6 },{ team: 'Ecuador', p: 3, gd: '0', pts: 4 },{ team: 'Curacao', p: 3, gd: '-8', pts: 1 }],
+            'F': [{ team: 'Netherlands', p: 3, gd: '+6', pts: 7 },{ team: 'Japan', p: 3, gd: '+4', pts: 5 },{ team: 'Sweden', p: 3, gd: '0', pts: 4 },{ team: 'Tunisia', p: 3, gd: '-10', pts: 0 }],
+            'G': [{ team: 'Belgium', p: 3, gd: '+4', pts: 5 },{ team: 'Egypt', p: 3, gd: '+2', pts: 5 },{ team: 'Iran', p: 3, gd: '0', pts: 3 },{ team: 'New Zealand', p: 3, gd: '-6', pts: 1 }],
+            'H': [{ team: 'Spain', p: 3, gd: '+5', pts: 7 },{ team: 'Cabo Verde', p: 3, gd: '0', pts: 3 },{ team: 'Uruguay', p: 3, gd: '-1', pts: 2 },{ team: 'Saudi Arabia', p: 3, gd: '-4', pts: 2 }],
+            'I': [{ team: 'France', p: 3, gd: '+8', pts: 9 },{ team: 'Norway', p: 3, gd: '+1', pts: 6 },{ team: 'Senegal', p: 3, gd: '+2', pts: 3 },{ team: 'Iraq', p: 3, gd: '-11', pts: 0 }],
+            'J': [{ team: 'Argentina', p: 3, gd: '+7', pts: 9 },{ team: 'Austria', p: 3, gd: '0', pts: 4 },{ team: 'Algeria', p: 3, gd: '-2', pts: 4 },{ team: 'Jordan', p: 3, gd: '-5', pts: 0 }],
+            'K': [{ team: 'Colombia', p: 3, gd: '+3', pts: 7 },{ team: 'Portugal', p: 3, gd: '+5', pts: 5 },{ team: 'DR Congo', p: 3, gd: '+1', pts: 4 },{ team: 'Uzbekistan', p: 3, gd: '-9', pts: 0 }],
+            'L': [{ team: 'England', p: 3, gd: '+4', pts: 7 },{ team: 'Croatia', p: 3, gd: '0', pts: 6 },{ team: 'Ghana', p: 3, gd: '0', pts: 4 },{ team: 'Panama', p: 3, gd: '-4', pts: 0 }]
+        };
+
+        function renderGroups() {
+            const container = document.getElementById('groupsContainer');
+            Object.entries(groupData).forEach(([group, teams]) => {
+                const card = document.createElement('div');
+                card.className = 'group-card';
+                let html = `<div class="group-header">Group ${group}</div><table><thead><tr><th>Team</th><th>P</th><th>GD</th><th>PTS</th></tr></thead><tbody>`;
+                teams.forEach(t => { html += `<tr><td>${t.team}</td><td>${t.p}</td><td>${t.gd}</td><td class="points">${t.pts}</td></tr>`; });
+                html += '</tbody></table>';
+                card.innerHTML = html;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleDark() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        }
+        if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+        renderGroups();
+    </script>
+</body>
+</html>
