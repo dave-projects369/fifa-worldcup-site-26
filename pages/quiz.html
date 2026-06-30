@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz | worldcupgolazo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold:#D4AF37; --bg-primary:#FFFAF5; --bg-secondary:#FFFFFF; --text-primary:#1A1A1A; --text-secondary:#5A5A5A; --border:#E8E3D4; --shadow:0 4px 20px rgba(0,0,0,0.06); }
+        .dark { --bg-primary:#1A1A2E; --bg-secondary:#252540; --text-primary:#F0EEE6; --text-secondary:#B0AFA0; --border:#3A3A50; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; background:var(--bg-primary); color:var(--text-primary); transition:0.3s; }
+        .navbar { background:var(--bg-secondary); border-bottom:1px solid var(--border); padding:14px 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:sticky; top:0; z-index:100; }
+        .nav-logo { font-family:'Outfit',sans-serif; font-weight:900; font-size:1.5rem; color:var(--gold); text-decoration:none; }
+        .nav-links { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+        .nav-links a { color:var(--text-secondary); text-decoration:none; font-weight:500; font-size:0.9rem; }
+        .nav-links a:hover { color:var(--gold); }
+        .dark-toggle { background:var(--bg-secondary); border:1px solid var(--border); padding:7px 14px; border-radius:50px; cursor:pointer; color:var(--text-primary); font-weight:600; }
+        .container { max-width:800px; margin:0 auto; padding:40px 24px; }
+        h1 { font-family:'Outfit',sans-serif; font-size:2.5rem; text-align:center; margin-bottom:40px; color:var(--gold); }
+        .level-select { display:flex; gap:12px; justify-content:center; margin-bottom:32px; flex-wrap:wrap; }
+        .level-btn { padding:10px 22px; border:2px solid var(--gold); background:transparent; color:var(--gold); border-radius:30px; cursor:pointer; font-weight:700; transition:0.3s; }
+        .level-btn.active, .level-btn:hover { background:var(--gold); color:#1A1A1A; }
+        .quiz-card { background:var(--bg-secondary); padding:20px; border-radius:16px; box-shadow:var(--shadow); border:1px solid var(--border); margin-bottom:16px; }
+        .question { font-weight:700; margin-bottom:14px; font-size:1.05rem; }
+        .option { padding:10px 14px; margin:5px 0; border:1px solid var(--border); border-radius:10px; cursor:pointer; transition:0.2s; }
+        .option:hover { border-color:var(--gold); background:rgba(212,175,55,0.1); }
+        .option.selected { border-color:var(--gold); background:rgba(212,175,55,0.2); font-weight:600; }
+        .option.correct { border-color:#4CAF50; background:rgba(76,175,80,0.2); }
+        .option.wrong { border-color:#f44336; background:rgba(244,67,54,0.2); }
+        .submit-btn { display:block; width:100%; padding:14px; background:var(--gold); color:#1A1A1A; border:none; border-radius:30px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:20px; }
+        .score { text-align:center; font-size:1.4rem; margin-top:20px; font-weight:700; color:var(--gold); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="nav-logo">⚽ worldcupgolazo</a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="bracket.html">Bracket</a>
+            <a href="groups.html">Groups</a>
+            <a href="travel.html">Travel</a>
+            <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>🧠 Quiz Challenge</h1>
+        <div class="level-select">
+            <button class="level-btn active" onclick="startQuiz('basic')">Basic</button>
+            <button class="level-btn" onclick="startQuiz('intermediate')">Intermediate</button>
+            <button class="level-btn" onclick="startQuiz('advanced')">Advanced</button>
+        </div>
+        <div id="quizArea"></div>
+    </div>
+    <script>
+        const quizData = {
+            basic: [
+                { q:"Which country won the first World Cup?", opts:["Brazil","Uruguay","Italy","Argentina"], correct:1 },
+                { q:"How often is the World Cup held?", opts:["2 years","4 years","3 years","5 years"], correct:1 },
+                { q:"Which country has won the most World Cups?", opts:["Germany","Italy","Brazil","Argentina"], correct:2 },
+                { q:"Who won the 2022 World Cup?", opts:["France","Brazil","Argentina","Germany"], correct:2 },
+                { q:"How many teams are in the 2026 World Cup?", opts:["24","32","48","64"], correct:2 },
+                { q:"Which country hosted the 2022 World Cup?", opts:["Russia","Brazil","Qatar","France"], correct:2 },
+                { q:"What color card means a player is sent off?", opts:["Yellow","Blue","Green","Red"], correct:3 },
+                { q:"Who is known as 'The Hand of God'?", opts:["Pelé","Zidane","Maradona","Messi"], correct:2 },
+                { q:"Which continent has won the most World Cups?", opts:["Europe","South America","Africa","Asia"], correct:1 },
+                { q:"What is the World Cup trophy called?", opts:["Golden Ball","FIFA Cup","Jules Rimet","World Globe"], correct:2 }
+            ],
+            intermediate: [
+                { q:"Who has scored the most World Cup goals?", opts:["Pelé","Ronaldo","Klose","Messi"], correct:2 },
+                { q:"Which country hosted the 1994 World Cup?", opts:["Mexico","USA","Italy","France"], correct:1 },
+                { q:"Who won the Golden Boot in 2018?", opts:["Mbappé","Modric","Harry Kane","Griezmann"], correct:2 },
+                { q:"Which team is known as 'La Roja'?", opts:["Portugal","Spain","Argentina","Chile"], correct:1 },
+                { q:"How many World Cups has Germany won?", opts:["2","3","4","5"], correct:2 },
+                { q:"Which country reached the 2018 final?", opts:["Belgium","England","Croatia","France"], correct:2 },
+                { q:"Who scored the fastest World Cup hat-trick?", opts:["Ronaldo","Klose","Batistuta","Pelé"], correct:2 },
+                { q:"Which stadium hosted the 2014 final?", opts:["Maracanã","Wembley","Luzhniki","Soccer City"], correct:0 },
+                { q:"Who won Best Player in 2022?", opts:["Mbappé","Messi","Modric","Neymar"], correct:1 },
+                { q:"Which country didn't qualify for 2018?", opts:["Italy","Netherlands","USA","All three"], correct:3 }
+            ],
+            advanced: [
+                { q:"Which player appeared in 5 World Cups?", opts:["Buffon","Messi","Ronaldo","Matthäus"], correct:3 },
+                { q:"What was the original name of the World Cup?", opts:["Victory","Jules Rimet","Coupe du Monde","FIFA Championship"], correct:1 },
+                { q:"Which country withdrew from 1930?", opts:["Italy","Spain","Netherlands","Most European teams"], correct:2 },
+                { q:"Who scored the 'Goal of the Century'?", opts:["Pelé","Maradona","Cruyff","Zidane"], correct:1 },
+                { q:"Which World Cup had the highest avg attendance?", opts:["1994","1950","2014","2006"], correct:1 },
+                { q:"How many nations have won the World Cup?", opts:["6","7","8","9"], correct:2 },
+                { q:"Who has won the most World Cup matches?", opts:["Messi","Klose","Matthäus","Cafu"], correct:1 },
+                { q:"What was unique about 2002?", opts:["First in Asia","Co-hosted","Both","48 teams"], correct:2 },
+                { q:"Who refereed the 2010 final?", opts:["Collina","Webb","Brych","Kuipers"], correct:1 },
+                { q:"Which nation boycotted 1966 qualifiers?", opts:["Brazil","African nations","Asian nations","USSR"], correct:1 }
+            ]
+        };
+        let currentQuiz='basic', userAnswers=[];
+        function startQuiz(level){ currentQuiz=level; userAnswers=new Array(10).fill(null); document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active')); event.target.classList.add('active'); renderQuiz(); }
+        function renderQuiz(){
+            const area=document.getElementById('quizArea');
+            area.innerHTML=quizData[currentQuiz].map((q,qi)=>`<div class="quiz-card"><div class="question">${qi+1}. ${q.q}</div>${q.opts.map((opt,oi)=>`<div class="option${userAnswers[qi]===oi?' selected':''}" onclick="selectAnswer(${qi},${oi})">${String.fromCharCode(65+oi)}) ${opt}</div>`).join('')}</div>`).join('')+'<button class="submit-btn" onclick="submitQuiz()">Submit Answers</button>';
+        }
+        function selectAnswer(qi,oi){ userAnswers[qi]=oi; renderQuiz(); }
+        function submitQuiz(){
+            let score=0; const questions=quizData[currentQuiz];
+            questions.forEach((q,i)=>{ if(userAnswers[i]===q.correct) score++; });
+            document.getElementById('quizArea').insertAdjacentHTML('beforeend',`<div class="score">Your Score: ${score}/10 (${score*10}%)</div>`);
+            document.querySelectorAll('.option').forEach((opt,idx)=>{ const qi=Math.floor(idx/4), oi=idx%4; if(questions[qi].correct===oi) opt.classList.add('correct'); if(userAnswers[qi]===oi&&userAnswers[qi]!==questions[qi].correct) opt.classList.add('wrong'); });
+        }
+        function toggleDark(){ document.body.classList.toggle('dark'); localStorage.setItem('darkMode',document.body.classList.contains('dark')); }
+        if(localStorage.getItem('darkMode')==='true') document.body.classList.add('dark');
+        startQuiz('basic');
+    </script>
+</body>
+</html>
