@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Guide | worldcupgolazo</title>
+    <meta name="description" content="2026 FIFA World Cup host cities guide. Explore all 16 venues across Canada, Mexico, and the United States.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --gold: #D4AF37;
+            --gold-light: #F5E07B;
+            --bg-primary: #FFFAF5;
+            --bg-secondary: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5A5A5A;
+            --border: #E8E3D4;
+            --shadow: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-hover: 0 10px 30px rgba(0,0,0,0.12);
+            --radius: 18px;
+            --transition: all 0.3s ease;
+        }
+        .dark {
+            --bg-primary: #1A1A2E;
+            --bg-secondary: #252540;
+            --text-primary: #F0EEE6;
+            --text-secondary: #B0AFA0;
+            --border: #3A3A50;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background: var(--bg-primary); color: var(--text-primary); transition: var(--transition); min-height: 100vh; }
+        .navbar { background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 14px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { font-family: var(--font-heading); font-weight: 900; font-size: 1.5rem; color: var(--gold); text-decoration: none; }
+        .nav-links { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: var(--transition); }
+        .nav-links a:hover { color: var(--gold); }
+        .dark-toggle { background: var(--bg-secondary); border: 1px solid var(--border); padding: 7px 14px; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.85rem; color: var(--text-primary); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 24px; }
+        h1 { font-family: var(--font-heading); font-size: clamp(2.5rem, 6vw, 3.5rem); text-align: center; margin-bottom: 8px; color: var(--gold); }
+        .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 12px; font-size: 1.1rem; }
+        .country-section { margin-bottom: 48px; }
+        .country-title { font-family: var(--font-heading); font-size: 1.8rem; color: var(--gold); margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 10px; }
+        .country-flag { font-size: 2rem; }
+        .city-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .city-card { background: var(--bg-secondary); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); transition: var(--transition); cursor: pointer; text-decoration: none; color: inherit; display: block; }
+        .city-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: var(--gold); }
+        .city-card-image { height: 180px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; }
+        .city-card-image .overlay { background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 16px; width: 100%; color: white; }
+        .city-card-image .city-name { font-family: var(--font-heading); font-weight: 800; font-size: 1.4rem; }
+        .city-card-image .stadium-name { font-size: 0.85rem; opacity: 0.9; }
+        .city-card-body { padding: 16px; }
+        .city-card-body p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 6px; }
+        .city-card-body .explore-btn { display: inline-block; margin-top: 8px; background: var(--gold); color: #1A1A1A; padding: 8px 18px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; transition: var(--transition); }
+        .city-card:hover .explore-btn { background: var(--gold-light); }
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: var(--text-secondary); margin-top: 40px; }
+        @media (max-width: 600px) { .city-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="nav-logo">⚽ worldcupgolazo</a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="bracket.html">Bracket</a>
+            <a href="groups.html">Groups</a>
+            <a href="history.html">History</a>
+            <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>🌍 Going to the World Cup</h1>
+        <p class="subtitle">16 Host Cities · 3 Countries · One Unforgettable Tournament</p>
+        <div class="country-section"><div class="country-title"><span class="country-flag">🇨🇦</span> Canada</div><div class="city-grid" id="canadaGrid"></div></div>
+        <div class="country-section"><div class="country-title"><span class="country-flag">🇲🇽</span> Mexico</div><div class="city-grid" id="mexicoGrid"></div></div>
+        <div class="country-section"><div class="country-title"><span class="country-flag">🇺🇸</span> United States</div><div class="city-grid" id="usaGrid"></div></div>
+    </div>
+    <footer><p>© 2026 worldcupgolazo — where every match tells a story</p></footer>
+    <script>
+        const cityData = {
+            canada: [
+                { name: 'Toronto', stadium: 'Toronto Stadium', slug: 'toronto', image: 'https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=600', desc: 'Canada\'s largest city hosts key matches including a Round of 32 clash.', matches: 'Round of 32, Group Stage matches' },
+                { name: 'Vancouver', stadium: 'BC Place Vancouver', slug: 'vancouver', image: 'https://images.unsplash.com/photo-1559511260-66a71ae22a17?w=600', desc: 'Stunning coastal city with mountain views. BC Place lights up for World Cup.', matches: 'Group Stage, Round of 32' }
+            ],
+            mexico: [
+                { name: 'Mexico City', stadium: 'Mexico City Stadium', slug: 'mexico-city', image: 'https://images.unsplash.com/photo-1518659526054-190340b32735?w=600', desc: 'The capital hosts the opening ceremony and multiple knockout matches.', matches: 'Opening Match, Round of 32, Quarter-final' },
+                { name: 'Guadalajara', stadium: 'Guadalajara Stadium', slug: 'guadalajara', image: 'https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?w=600', desc: 'Cultural heart of Mexico with mariachi and tequila heritage.', matches: 'Group Stage matches' },
+                { name: 'Monterrey', stadium: 'Monterrey Stadium', slug: 'monterrey', image: 'https://images.unsplash.com/photo-1532456745301-b2c645d8b80d?w=600', desc: 'Modern industrial city surrounded by dramatic mountains.', matches: 'Group Stage, Round of 32' }
+            ],
+            usa: [
+                { name: 'Atlanta', stadium: 'Atlanta Stadium', slug: 'atlanta', image: 'https://images.unsplash.com/photo-1575917649705-5b59aaa12eac?w=600', desc: 'Southern hospitality meets world-class soccer.', matches: 'Group Stage, Round of 32, Semi-Final 2' },
+                { name: 'Boston', stadium: 'Boston Stadium', slug: 'boston', image: 'https://images.unsplash.com/photo-1507901747481-84a4f64fda6d?w=600', desc: 'Historic New England city with passionate sports culture.', matches: 'Group Stage, Quarter-final' },
+                { name: 'Dallas', stadium: 'Dallas Stadium', slug: 'dallas', image: 'https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=600', desc: 'Everything is bigger in Texas — Semi-Final 1 venue.', matches: 'Group Stage, Round of 32, Semi-Final 1' },
+                { name: 'Houston', stadium: 'Houston Stadium', slug: 'houston', image: 'https://images.unsplash.com/photo-1530089711124-9ca31fb9e863?w=600', desc: 'Diverse, energetic city with a huge international community.', matches: 'Group Stage, Round of 32, Round of 16' },
+                { name: 'Kansas City', stadium: 'Kansas City Stadium', slug: 'kansas-city', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600', desc: 'America\'s soccer capital with legendary BBQ.', matches: 'Group Stage, Round of 32, Quarter-final' },
+                { name: 'Los Angeles', stadium: 'Los Angeles Stadium', slug: 'los-angeles', image: 'https://images.unsplash.com/photo-1544413164-5f1b295eb435?w=600', desc: 'Entertainment capital hosts 8 matches including a Quarter-final.', matches: 'Group Stage, Round of 32, Quarter-final' },
+                { name: 'Miami', stadium: 'Miami Stadium', slug: 'miami', image: 'https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=600', desc: 'Sun, beaches, and the 3rd-Place Match in South Florida.', matches: 'Group Stage, Quarter-final, 3rd-Place Match' },
+                { name: 'New York New Jersey', stadium: 'New York New Jersey Stadium', slug: 'new-york-new-jersey', image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600', desc: 'The grandest stage — hosting the 2026 FIFA World Cup Final.', matches: 'FINAL, Semi-final, Group Stage' },
+                { name: 'Philadelphia', stadium: 'Philadelphia Stadium', slug: 'philadelphia', image: 'https://images.unsplash.com/photo-1601332069884-13efdebc87e5?w=600', desc: 'Historic city of brotherly love with fierce sports tradition.', matches: 'Group Stage, Round of 16' },
+                { name: 'San Francisco Bay Area', stadium: 'San Francisco Bay Area Stadium', slug: 'san-francisco-bay-area', image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=600', desc: 'Golden Gate backdrop for World Cup action.', matches: 'Group Stage, Round of 32' },
+                { name: 'Seattle', stadium: 'Seattle Stadium', slug: 'seattle', image: 'https://images.unsplash.com/photo-1502175353174-a7a70e73b362?w=600', desc: 'Coffee, tech, and soccer passion in the Pacific Northwest.', matches: 'Group Stage, Round of 16' }
+            ]
+        };
+        function renderCards(id, cities) {
+            document.getElementById(id).innerHTML = cities.map(c => `
+                <a href="cities/${c.slug}.html" class="city-card">
+                    <div class="city-card-image" style="background-image:url('${c.image}')"><div class="overlay"><div class="city-name">${c.name}</div><div class="stadium-name">${c.stadium}</div></div></div>
+                    <div class="city-card-body"><p>${c.desc}</p><p><strong>Matches:</strong> ${c.matches}</p><span class="explore-btn">Discover ${c.name} →</span></div>
+                </a>`).join('');
+        }
+        renderCards('canadaGrid', cityData.canada);
+        renderCards('mexicoGrid', cityData.mexico);
+        renderCards('usaGrid', cityData.usa);
+        function toggleDark() { document.body.classList.toggle('dark'); localStorage.setItem('darkMode', document.body.classList.contains('dark')); }
+        if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+    </script>
+</body>
+</html>
