@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Cup History | worldcupgolazo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold:#D4AF37; --gold-light:#F5E07B; --bg-primary:#FFFAF5; --bg-secondary:#FFFFFF; --text-primary:#1A1A1A; --text-secondary:#5A5A5A; --border:#E8E3D4; --shadow:0 4px 20px rgba(0,0,0,0.06); }
+        .dark { --bg-primary:#1A1A2E; --bg-secondary:#252540; --text-primary:#F0EEE6; --text-secondary:#B0AFA0; --border:#3A3A50; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; background:var(--bg-primary); color:var(--text-primary); transition:0.3s; }
+        .navbar { background:var(--bg-secondary); border-bottom:1px solid var(--border); padding:14px 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:sticky; top:0; z-index:100; }
+        .nav-logo { font-family:'Outfit',sans-serif; font-weight:900; font-size:1.5rem; color:var(--gold); text-decoration:none; }
+        .nav-links { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+        .nav-links a { color:var(--text-secondary); text-decoration:none; font-weight:500; font-size:0.9rem; }
+        .nav-links a:hover { color:var(--gold); }
+        .dark-toggle { background:var(--bg-secondary); border:1px solid var(--border); padding:7px 14px; border-radius:50px; cursor:pointer; color:var(--text-primary); font-weight:600; }
+        .container { max-width:1000px; margin:0 auto; padding:40px 24px; }
+        h1, h2 { font-family:'Outfit',sans-serif; color:var(--gold); text-align:center; }
+        h1 { font-size:2.5rem; margin-bottom:40px; }
+        h2 { font-size:1.6rem; margin:32px 0 16px; }
+        .timeline { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom:40px; }
+        .timeline-item { background:var(--bg-secondary); border:1px solid var(--border); padding:10px 18px; border-radius:30px; box-shadow:var(--shadow); font-weight:500; }
+        .legends-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:16px; margin-bottom:40px; }
+        .legend-card { background:var(--bg-secondary); padding:20px; border-radius:16px; text-align:center; border:1px solid var(--border); box-shadow:var(--shadow); }
+        .legend-card small { color:var(--text-secondary); }
+        .facts { background:var(--bg-secondary); padding:28px; border-radius:16px; border:1px solid var(--border); box-shadow:var(--shadow); }
+        .facts p { color:var(--text-secondary); margin-bottom:10px; line-height:1.6; }
+        footer { text-align:center; padding:40px; border-top:1px solid var(--border); color:var(--text-secondary); margin-top:40px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="nav-logo">⚽ worldcupgolazo</a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="bracket.html">Bracket</a>
+            <a href="groups.html">Groups</a>
+            <a href="travel.html">Travel</a>
+            <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>📚 World Cup History</h1>
+        <h2>Past Winners</h2>
+        <div class="timeline">
+            <span class="timeline-item">1930 🇺🇾 Uruguay</span><span class="timeline-item">1934 🇮🇹 Italy</span><span class="timeline-item">1938 🇮🇹 Italy</span><span class="timeline-item">1950 🇺🇾 Uruguay</span><span class="timeline-item">1954 🇩🇪 Germany</span><span class="timeline-item">1958 🇧🇷 Brazil</span><span class="timeline-item">1962 🇧🇷 Brazil</span><span class="timeline-item">1966 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="timeline-item">1970 🇧🇷 Brazil</span><span class="timeline-item">1974 🇩🇪 Germany</span><span class="timeline-item">1978 🇦🇷 Argentina</span><span class="timeline-item">1982 🇮🇹 Italy</span><span class="timeline-item">1986 🇦🇷 Argentina</span><span class="timeline-item">1990 🇩🇪 Germany</span><span class="timeline-item">1994 🇧🇷 Brazil</span><span class="timeline-item">1998 🇫🇷 France</span><span class="timeline-item">2002 🇧🇷 Brazil</span><span class="timeline-item">2006 🇮🇹 Italy</span><span class="timeline-item">2010 🇪🇸 Spain</span><span class="timeline-item">2014 🇩🇪 Germany</span><span class="timeline-item">2018 🇫🇷 France</span><span class="timeline-item">2022 🇦🇷 Argentina</span>
+        </div>
+        <h2>Legends of the Game</h2>
+        <div class="legends-grid">
+            <div class="legend-card">🇧🇷 Pelé<br><small>3x Champion (1958,62,70)</small></div>
+            <div class="legend-card">🇦🇷 Maradona<br><small>1986 Golden Ball</small></div>
+            <div class="legend-card">🇩🇪 Beckenbauer<br><small>Won as player & coach</small></div>
+            <div class="legend-card">🇫🇷 Zidane<br><small>1998 & 2006 icon</small></div>
+            <div class="legend-card">🇦🇷 Messi<br><small>2022 Champion</small></div>
+            <div class="legend-card">🇵🇹 Cristiano Ronaldo<br><small>All-time top scorer</small></div>
+        </div>
+        <div class="facts">
+            <h2>🔥 You Never Knew</h2>
+            <p>• The 1942 and 1946 World Cups were cancelled due to World War II.</p>
+            <p>• Uruguay won the very first World Cup in 1930 — which they also hosted.</p>
+            <p>• Brazil holds the record with 5 World Cup titles.</p>
+            <p>• The fastest goal in World Cup history was scored by Hakan Şükür in just 11 seconds (2002).</p>
+            <p>• The 2026 tournament will be the first with 48 teams — up from 32.</p>
+        </div>
+    </div>
+    <footer><p>© 2026 worldcupgolazo — where every match tells a story</p></footer>
+    <script>
+        function toggleDark(){ document.body.classList.toggle('dark'); localStorage.setItem('darkMode',document.body.classList.contains('dark')); }
+        if(localStorage.getItem('darkMode')==='true') document.body.classList.add('dark');
+    </script>
+</body>
+</html>
