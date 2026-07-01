@@ -31,6 +31,12 @@
         }
     </script>
     <style>
+        :root {
+            --gold: #FACC15;
+            --gold-dark: #EAB308;
+            --navy: #0F172A;
+        }
+        
         /* Gold gradient text for hero */
         .text-gold-gradient {
             background: linear-gradient(90deg, #FFFFFF 0%, #FACC15 100%);
@@ -68,7 +74,7 @@
         .float-3 { animation: float 9s ease-in-out infinite; bottom: 30%; left: 10%; }
         .float-4 { animation: floatSlow 11s ease-in-out infinite; bottom: 20%; right: 5%; }
         
-        /* Smooth gradient transition */
+        /* Hero gradient */
         .hero-gradient {
             background: linear-gradient(180deg, #0F172A 0%, #1E3A5F 40%, #134E4A 70%, #0F172A 100%);
             position: relative;
@@ -85,57 +91,108 @@
             pointer-events: none;
         }
         
-        /* Transition to light section */
+        /* Smooth gradient transition */
         .transition-gradient {
-            background: linear-gradient(180deg, #0F172A 0%, #1A2744 30%, #2D3A54 60%, #8B9DAF 85%, #FAF7F0 100%);
-            height: 160px;
+            background: linear-gradient(180deg, #0F172A 0%, #1A2744 25%, #2D3A54 50%, #6B7D8F 75%, #C5BFB0 90%, #FAF7F0 100%);
+            height: 180px;
         }
         
-        /* Light section with depth */
+        /* Light section with real depth */
         .light-section {
-            background: linear-gradient(180deg, #FAF7F0 0%, #F5EFE6 50%, #EFE7DA 100%);
+            background: 
+                radial-gradient(ellipse at 20% 10%, rgba(30,58,95,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(250,204,21,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(20,184,166,0.04) 0%, transparent 60%),
+                linear-gradient(180deg, #FAF7F0 0%, #F3EDE3 30%, #EDE5D8 60%, #F5EFE6 100%);
             position: relative;
         }
+        /* Subtle grain overlay */
         .light-section::before {
             content: '';
             position: absolute;
-            top: 10%;
-            right: 5%;
-            width: 40%;
-            height: 50%;
-            background: radial-gradient(ellipse, rgba(30,58,95,0.03) 0%, transparent 70%);
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            background-size: 256px 256px;
             pointer-events: none;
-        }
-        .light-section::after {
-            content: '';
-            position: absolute;
-            bottom: 5%;
-            left: 5%;
-            width: 35%;
-            height: 40%;
-            background: radial-gradient(ellipse, rgba(250,204,21,0.04) 0%, transparent 70%);
-            pointer-events: none;
+            z-index: 0;
         }
         
-        /* Card styles */
+        /* Feature cards */
         .feature-card {
             background: #FFFFFF;
-            border: 1px solid rgba(250,204,21,0.15);
+            border: 1px solid rgba(250,204,21,0.12);
             border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.03);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
         .feature-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 12px 36px rgba(0,0,0,0.10);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.08), 0 16px 48px rgba(0,0,0,0.06);
+            border-color: rgba(250,204,21,0.35);
+        }
+        .feature-card:nth-child(1) { border-top: 4px solid #FACC15; }
+        .feature-card:nth-child(2) { border-top: 4px solid #1E3A5F; }
+        .feature-card:nth-child(3) { border-top: 4px solid #14B8A6; }
+        .feature-card:nth-child(4) { border-top: 4px solid #E8725A; }
+        .feature-card:nth-child(5) { border-top: 4px solid #EAB308; }
+        .feature-card:nth-child(6) { border-top: 4px solid #1E3A5F; }
+        
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        /* Dark mode toggle icon only */
+        .dark-toggle-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #FACC15;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .dark-toggle-btn:hover {
+            background: rgba(250,204,21,0.15);
             border-color: rgba(250,204,21,0.4);
         }
     </style>
 </head>
-<body class="font-body antialiased">
+<body class="font-body antialiased bg-navy">
+
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+            <a href="index.html" class="font-display text-2xl text-gold tracking-wider uppercase no-underline">worldcupgolazo</a>
+            <div class="flex items-center gap-6">
+                <a href="pages/bracket.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Bracket</a>
+                <a href="pages/groups.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Groups</a>
+                <a href="pages/travel.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Travel</a>
+                <a href="pages/history.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">History</a>
+                <a href="pages/quiz.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Quiz</a>
+                <a href="pages/predictions.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Predictions</a>
+                <button onclick="toggleDark()" class="dark-toggle-btn" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+    </nav>
 
     <!-- ============ HERO SECTION ============ -->
-    <section class="hero-gradient min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6">
+    <section class="hero-gradient min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6 pt-20">
         
         <!-- Floating Icons -->
         <div class="floating-icon float-1">⚽</div>
@@ -183,14 +240,14 @@
         
         <!-- Scroll Indicator -->
         <div class="absolute bottom-6 text-slate-500 text-sm animate-bounce">
-            ↓ Scroll
+            ↓ Explore
         </div>
     </section>
 
     <!-- ============ GRADIENT TRANSITION ============ -->
     <div class="transition-gradient"></div>
 
-    <!-- ============ LIGHT SECTION ============ -->
+    <!-- ============ LIGHT SECTION WITH DEPTH ============ -->
     <section class="light-section py-24 px-6 relative">
         <div class="max-w-6xl mx-auto relative z-10">
             <h2 class="font-display text-5xl md:text-6xl text-center text-navy uppercase tracking-wide mb-3">
@@ -202,35 +259,35 @@
             
             <!-- Feature Cards Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <a href="pages/bracket.html" class="feature-card p-8 block">
+                <a href="pages/bracket.html" class="feature-card p-8 block no-underline">
                     <div class="text-4xl mb-4">🏆</div>
                     <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">Bracket Simulator</h3>
-                    <p class="text-slate-500 text-sm">Simulate from Round of 32 to the Final. Click teams to advance through every knockout stage.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">Simulate from Round of 32 to the Final. Click teams to advance through every knockout stage.</p>
                 </a>
-                <a href="pages/groups.html" class="feature-card p-8 block">
+                <a href="pages/groups.html" class="feature-card p-8 block no-underline">
                     <div class="text-4xl mb-4">📊</div>
                     <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">Group Standings</h3>
-                    <p class="text-slate-500 text-sm">All 12 groups with 48 teams. Points, goal difference, and full standings.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">All 12 groups with 48 teams. Points, goal difference, and full standings.</p>
                 </a>
-                <a href="pages/travel.html" class="feature-card p-8 block">
+                <a href="pages/travel.html" class="feature-card p-8 block no-underline">
                     <div class="text-4xl mb-4">🌍</div>
                     <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">Travel Guide</h3>
-                    <p class="text-slate-500 text-sm">16 host cities across Canada, Mexico, and the USA. Stadiums, hotels, flights.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">16 host cities across Canada, Mexico, and the USA. Stadiums, hotels, flights.</p>
                 </a>
-                <a href="pages/history.html" class="feature-card p-8 block">
+                <a href="pages/history.html" class="feature-card p-8 block no-underline">
                     <div class="text-4xl mb-4">📚</div>
                     <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">World Cup History</h3>
-                    <p class="text-slate-500 text-sm">Timeline of champions, legendary players, and fascinating facts.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">Timeline of champions, legendary players, and fascinating facts.</p>
                 </a>
-                <a href="pages/quiz.html" class="feature-card p-8 block">
+                <a href="pages/quiz.html" class="feature-card p-8 block no-underline">
                     <div class="text-4xl mb-4">🧠</div>
                     <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">Quiz Challenge</h3>
-                    <p class="text-slate-500 text-sm">Test your knowledge with Basic, Intermediate, and Advanced levels.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">Test your knowledge with Basic, Intermediate, and Advanced levels.</p>
                 </a>
-                <a href="pages/predictions.html" class="feature-card p-8 block">
+                <a href="pages/predictions.html" class="feature-card p-8 block no-underline">
                     <div class="text-4xl mb-4">🔮</div>
                     <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">2026 Predictions</h3>
-                    <p class="text-slate-500 text-sm">Expert analysis and knockout stage predictions for the tournament.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">Expert analysis and knockout stage predictions for the tournament.</p>
                 </a>
             </div>
         </div>
@@ -241,5 +298,17 @@
         <p>© 2026 worldcupgolazo — where every match tells a story</p>
     </footer>
 
+    <script>
+        function toggleDark() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            document.getElementById('darkToggle').textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', isDark);
+        }
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+            document.getElementById('darkToggle').textContent = '☀️';
+        }
+    </script>
 </body>
 </html>
