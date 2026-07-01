@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@1&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -17,6 +17,7 @@
                         display: ['Bebas Neue', 'sans-serif'],
                         body: ['Inter', 'sans-serif'],
                         italic: ['Playfair Display', 'serif'],
+                        logo: ['Syncopate', 'sans-serif'],
                     },
                     colors: {
                         gold: '#FACC15',
@@ -131,7 +132,6 @@
         .feature-card:nth-child(5) { border-top: 4px solid #EAB308; }
         .feature-card:nth-child(6) { border-top: 4px solid #1E3A5F; }
         
-        /* Navbar - always dark, matches dark mode toggle */
         .navbar {
             position: fixed;
             top: 0;
@@ -156,22 +156,23 @@
             color: #1E3A5F !important;
         }
         
-        /* Logo - always gold with depth */
+        /* Logo - bold, readable, gold with dark undertone */
         .nav-logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
+            font-family: 'Syncopate', 'Bebas Neue', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
             text-decoration: none;
-            background: linear-gradient(180deg, #FDE68A 0%, #FACC15 30%, #EAB308 60%, #B8960F 100%);
+            background: linear-gradient(180deg, #1A1A1A 0%, #3D2E0A 25%, #FACC15 50%, #EAB308 75%, #B8960F 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 2px 6px rgba(250,204,21,0.4));
+            filter: drop-shadow(0 2px 8px rgba(250,204,21,0.5));
             transition: all 0.3s ease;
         }
         .nav-logo:hover {
-            filter: drop-shadow(0 3px 10px rgba(250,204,21,0.6));
+            filter: drop-shadow(0 4px 14px rgba(250,204,21,0.8));
         }
         
         .dark-toggle-btn {
@@ -198,7 +199,6 @@
             color: #1E3A5F;
         }
 
-        /* Launch Simulator button - navy text always, even in dark mode */
         .cta-primary {
             background: linear-gradient(180deg, #FACC15 0%, #EAB308 100%);
             color: #0F172A !important;
@@ -219,7 +219,6 @@
             color: #0F172A !important;
         }
 
-        /* Dark Mode */
         body.dark .light-section {
             background: 
                 radial-gradient(ellipse at 20% 10%, rgba(30,58,95,0.15) 0%, transparent 50%),
