@@ -7,11 +7,12 @@
     <meta name="description" content="World Cup 2026 - Live bracket simulator, group standings, travel guide, and more. THE WORLD PLAYS NOW.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --font-heading: 'Outfit', sans-serif;
+            --font-display: 'Bebas Neue', sans-serif;
             --font-body: 'Inter', sans-serif;
+            --font-italic: 'Playfair Display', serif;
             --gold: #D4AF37;
             --gold-light: #F5E07B;
             --gold-dark: #B8960F;
@@ -21,18 +22,22 @@
             --text-secondary: #5A5A5A;
             --border: #E8E3D4;
             --shadow: 0 4px 20px rgba(0,0,0,0.06);
-            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --shadow-hover: 0 12px 32px rgba(0,0,0,0.10);
             --radius: 20px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --accent-blue: #2B5F8A;
+            --accent-coral: #E8725A;
+            --accent-teal: #1A8A7D;
         }
 
         .dark {
-            --bg-primary: #1A1A2E;
-            --bg-secondary: #252540;
+            --bg-primary: #0F0F1A;
+            --bg-secondary: #1A1A2E;
             --text-primary: #F0EEE6;
             --text-secondary: #B0AFA0;
-            --border: #3A3A50;
-            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+            --border: #2A2A40;
+            --shadow: 0 4px 20px rgba(0,0,0,0.4);
+            --shadow-hover: 0 12px 32px rgba(0,0,0,0.6);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,18 +51,18 @@
             overflow-x: hidden;
         }
 
+        /* Navbar */
         .navbar {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(255, 250, 245, 0.95);
+            background: rgba(255, 250, 245, 0.92);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            padding: 16px 32px;
+            padding: 14px 32px;
             transition: var(--transition);
         }
-
-        .dark .navbar { background: rgba(26, 26, 46, 0.95); }
+        .dark .navbar { background: rgba(15, 15, 26, 0.92); }
 
         .nav-container {
             max-width: 1400px;
@@ -70,30 +75,32 @@
         }
 
         .nav-logo {
-            font-family: var(--font-heading);
-            font-weight: 900;
-            font-size: 1.8rem;
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 2rem;
             color: var(--gold);
             text-decoration: none;
-            letter-spacing: -0.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+        .nav-links { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
 
         .nav-links a {
             text-decoration: none;
             color: var(--text-secondary);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-links a:hover { color: var(--accent-coral); }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: var(--accent-coral);
             transition: var(--transition);
         }
-
-        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
 
         .dark-toggle {
             background: var(--bg-secondary);
@@ -102,129 +109,131 @@
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: var(--transition);
             color: var(--text-primary);
         }
+        .dark-toggle:hover { border-color: var(--accent-coral); transform: translateY(-2px); }
 
-        .dark-toggle:hover {
-            border-color: var(--gold);
-            transform: translateY(-2px);
-        }
-
+        /* Hero */
         .hero {
             text-align: center;
             padding: 100px 24px 80px;
-            background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.15), transparent 70%);
+            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(212,175,55,0.08) 50%, var(--bg-primary) 100%);
         }
-
         .hero-title {
-            font-family: var(--font-heading);
-            font-size: clamp(3.5rem, 10vw, 7rem);
-            font-weight: 900;
+            font-family: var(--font-display);
+            font-size: clamp(5rem, 12vw, 9rem);
+            font-weight: 400;
             text-transform: uppercase;
-            line-height: 1;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            line-height: 0.9;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
         }
-
+        .hero-title span { color: var(--gold); }
         .hero-slogan {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--gold);
-            font-weight: 500;
-            margin-bottom: 40px;
+            font-family: var(--font-italic);
             font-style: italic;
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            color: var(--accent-teal);
+            margin-bottom: 36px;
         }
-
         .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-            color: #1A1A1A;
-            padding: 18px 48px;
+            background: var(--accent-coral);
+            color: #FFFFFF;
+            padding: 16px 44px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             text-decoration: none;
             transition: var(--transition);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 24px rgba(232,114,90,0.3);
+            letter-spacing: 0.5px;
         }
+        .cta-button:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 14px 32px rgba(232,114,90,0.5); }
 
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
-        }
-
-        .preview-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 60px 24px;
-        }
-
+        /* Preview Section */
+        .preview-section { max-width: 1400px; margin: 0 auto; padding: 60px 24px; }
         .section-title {
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
+            font-family: var(--font-display);
+            font-size: 3rem;
             text-align: center;
-            margin-bottom: 40px;
-            color: var(--gold);
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
+        .section-subtitle {
+            font-family: var(--font-italic);
+            font-style: italic;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 44px;
+            font-size: 1.1rem;
+        }
         .preview-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
+            gap: 28px;
         }
 
         .preview-card {
             background: var(--bg-secondary);
             border-radius: var(--radius);
-            padding: 32px;
+            padding: 32px 28px;
             text-decoration: none;
             color: inherit;
             border: 1px solid var(--border);
             transition: var(--transition);
             box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
         }
-
-        .preview-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--gold);
+        .preview-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+        .preview-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            transition: var(--transition);
         }
+        .preview-card:nth-child(1)::before { background: var(--gold); }
+        .preview-card:nth-child(2)::before { background: var(--accent-blue); }
+        .preview-card:nth-child(3)::before { background: var(--accent-teal); }
+        .preview-card:nth-child(4)::before { background: var(--accent-coral); }
+        .preview-card:nth-child(5)::before { background: var(--gold-dark); }
+        .preview-card:nth-child(6)::before { background: var(--accent-blue); }
 
-        .card-icon { font-size: 3rem; margin-bottom: 16px; }
-
+        .card-icon { font-size: 2.8rem; margin-bottom: 14px; }
         .preview-card h3 {
-            font-family: var(--font-heading);
+            font-family: var(--font-display);
             font-size: 1.8rem;
-            margin-bottom: 12px;
-            color: var(--gold);
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
         }
-
-        .preview-card p { color: var(--text-secondary); font-size: 1rem; }
+        .preview-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; }
 
         footer {
             text-align: center;
-            padding: 40px;
+            padding: 36px;
             border-top: 1px solid var(--border);
             color: var(--text-secondary);
-            margin-top: 60px;
+            margin-top: 40px;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
             .nav-container { flex-direction: column; align-items: flex-start; }
             .nav-links { gap: 12px; }
-            .nav-logo { font-size: 1.3rem; }
+            .hero-title { font-size: 3.5rem; }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">⚽ worldcupgolazo</a>
+            <a href="index.html" class="nav-logo">worldcupgolazo</a>
             <div class="nav-links">
                 <a href="pages/bracket.html">Bracket</a>
                 <a href="pages/groups.html">Groups</a>
@@ -241,23 +250,24 @@
 
     <main>
         <section class="hero">
-            <h1 class="hero-title">THE WORLD<br>PLAYS NOW</h1>
+            <h1 class="hero-title">THE WORLD<br><span>PLAYS NOW</span></h1>
             <p class="hero-slogan">where every match tells a story</p>
             <a href="pages/bracket.html" class="cta-button">🏆 Start Simulation</a>
         </section>
 
         <section class="preview-section">
             <h2 class="section-title">Explore the Tournament</h2>
+            <p class="section-subtitle">Everything you need for World Cup 2026</p>
             <div class="preview-grid">
                 <a href="pages/bracket.html" class="preview-card">
                     <div class="card-icon">🏆</div>
                     <h3>Bracket Simulator</h3>
-                    <p>Simulate from Round of 32 to the Final. Click teams to advance them through the tournament.</p>
+                    <p>Simulate from Round of 32 to the Final. Click teams to advance through every knockout stage.</p>
                 </a>
                 <a href="pages/groups.html" class="preview-card">
                     <div class="card-icon">📊</div>
                     <h3>Group Standings</h3>
-                    <p>All 12 groups with 48 teams. Points, goal difference, and standings.</p>
+                    <p>All 12 groups with 48 teams. Points, goal difference, and full standings.</p>
                 </a>
                 <a href="pages/travel.html" class="preview-card">
                     <div class="card-icon">🌍</div>
@@ -277,7 +287,7 @@
                 <a href="pages/predictions.html" class="preview-card">
                     <div class="card-icon">🔮</div>
                     <h3>2026 Predictions</h3>
-                    <p>Expert analysis and knockout stage predictions.</p>
+                    <p>Expert analysis and knockout stage predictions for the tournament.</p>
                 </a>
             </div>
         </section>
