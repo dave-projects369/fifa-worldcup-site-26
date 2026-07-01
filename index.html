@@ -37,7 +37,6 @@
             --navy: #0F172A;
         }
         
-        /* Gold gradient text for hero */
         .text-gold-gradient {
             background: linear-gradient(90deg, #FFFFFF 0%, #FACC15 100%);
             -webkit-background-clip: text;
@@ -45,7 +44,6 @@
             background-clip: text;
         }
         
-        /* Glassmorphism card */
         .glass-card {
             background: rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(16px);
@@ -54,7 +52,6 @@
             border-radius: 20px;
         }
         
-        /* Floating icons animation */
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(5deg); }
@@ -74,7 +71,6 @@
         .float-3 { animation: float 9s ease-in-out infinite; bottom: 30%; left: 10%; }
         .float-4 { animation: floatSlow 11s ease-in-out infinite; bottom: 20%; right: 5%; }
         
-        /* Hero gradient */
         .hero-gradient {
             background: linear-gradient(180deg, #0F172A 0%, #1E3A5F 40%, #134E4A 70%, #0F172A 100%);
             position: relative;
@@ -91,13 +87,11 @@
             pointer-events: none;
         }
         
-        /* Smooth gradient transition */
         .transition-gradient {
             background: linear-gradient(180deg, #0F172A 0%, #1A2744 25%, #2D3A54 50%, #6B7D8F 75%, #C5BFB0 90%, #FAF7F0 100%);
             height: 180px;
         }
         
-        /* Light section with real depth */
         .light-section {
             background: 
                 radial-gradient(ellipse at 20% 10%, rgba(30,58,95,0.06) 0%, transparent 50%),
@@ -106,7 +100,6 @@
                 linear-gradient(180deg, #FAF7F0 0%, #F3EDE3 30%, #EDE5D8 60%, #F5EFE6 100%);
             position: relative;
         }
-        /* Subtle grain overlay */
         .light-section::before {
             content: '';
             position: absolute;
@@ -117,7 +110,6 @@
             z-index: 0;
         }
         
-        /* Feature cards */
         .feature-card {
             background: #FFFFFF;
             border: 1px solid rgba(250,204,21,0.12);
@@ -150,9 +142,25 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.4s ease;
         }
         
-        /* Dark mode toggle icon only */
+        .navbar.light {
+            background: rgba(250, 247, 240, 0.92);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        .navbar.light a {
+            color: #334155 !important;
+        }
+        .navbar.light a:hover {
+            color: #1E3A5F !important;
+        }
+        .navbar.light .dark-toggle-btn {
+            background: rgba(0,0,0,0.06);
+            border-color: rgba(0,0,0,0.12);
+            color: #1E3A5F;
+        }
+        
         .dark-toggle-btn {
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.15);
@@ -172,7 +180,7 @@
             border-color: rgba(250,204,21,0.4);
         }
 
-        /* ============ DARK MODE ============ */
+        /* Dark Mode */
         body.dark .light-section {
             background: 
                 radial-gradient(ellipse at 20% 10%, rgba(30,58,95,0.15) 0%, transparent 50%),
@@ -184,29 +192,29 @@
             background: #1E293B !important;
             border-color: rgba(255,255,255,0.08) !important;
         }
-        body.dark .feature-card h3 {
-            color: #F0EEE6 !important;
-        }
-        body.dark .feature-card p {
-            color: #94A3B8 !important;
-        }
-        body.dark .text-navy {
-            color: #FACC15 !important;
-        }
-        body.dark .text-slate-500 {
-            color: #94A3B8 !important;
-        }
-        body.dark footer {
-            background: #0F172A !important;
-        }
+        body.dark .feature-card h3 { color: #F0EEE6 !important; }
+        body.dark .feature-card p { color: #94A3B8 !important; }
+        body.dark .text-navy { color: #FACC15 !important; }
+        body.dark .text-slate-500 { color: #94A3B8 !important; }
+        body.dark footer { background: #0F172A !important; }
         body.dark .transition-gradient {
             background: linear-gradient(180deg, #0F172A 0%, #1A2744 25%, #1A1A2E 50%, #162032 75%, #1A1A2E 100%) !important;
+        }
+        body.dark .navbar.light {
+            background: rgba(26, 26, 46, 0.92) !important;
+            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+        }
+        body.dark .navbar.light a { color: #CBD5E1 !important; }
+        body.dark .navbar.light a:hover { color: #FACC15 !important; }
+        body.dark .navbar.light .dark-toggle-btn {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            color: #FACC15;
         }
     </style>
 </head>
 <body class="font-body antialiased bg-navy">
 
-    <!-- ============ NAVBAR ============ -->
     <nav class="navbar">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
             <a href="index.html" class="font-display text-2xl text-gold tracking-wider uppercase no-underline">worldcupgolazo</a>
@@ -222,16 +230,12 @@
         </div>
     </nav>
 
-    <!-- ============ HERO SECTION ============ -->
     <section class="hero-gradient min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6 pt-20">
-        
-        <!-- Floating Icons -->
         <div class="floating-icon float-1">⚽</div>
         <div class="floating-icon float-2">🌴</div>
         <div class="floating-icon float-3">🎉</div>
         <div class="floating-icon float-4">🌊</div>
         
-        <!-- Hero Content -->
         <div class="relative z-10 text-center max-w-4xl mx-auto">
             <h1 class="font-display text-7xl md:text-9xl uppercase tracking-tight leading-none mb-4 text-gold-gradient">
                 THE WORLD<br>PLAYS NOW.
@@ -249,7 +253,6 @@
             </div>
         </div>
         
-        <!-- Stats Card -->
         <div class="glass-card mt-16 px-10 py-6 flex flex-wrap justify-center gap-8 md:gap-12 relative z-10">
             <div class="text-center">
                 <div class="font-display text-4xl md:text-5xl text-gold">48</div>
@@ -269,26 +272,16 @@
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-6 text-slate-500 text-sm animate-bounce">
-            ↓ Explore
-        </div>
+        <div class="absolute bottom-6 text-slate-500 text-sm animate-bounce">↓ Explore</div>
     </section>
 
-    <!-- ============ GRADIENT TRANSITION ============ -->
     <div class="transition-gradient"></div>
 
-    <!-- ============ LIGHT SECTION WITH DEPTH ============ -->
     <section class="light-section py-24 px-6 relative">
         <div class="max-w-6xl mx-auto relative z-10">
-            <h2 class="font-display text-5xl md:text-6xl text-center text-navy uppercase tracking-wide mb-3">
-                Explore the Tournament
-            </h2>
-            <p class="font-italic text-center text-slate-500 text-lg mb-14">
-                Everything you need for World Cup 2026
-            </p>
+            <h2 class="font-display text-5xl md:text-6xl text-center text-navy uppercase tracking-wide mb-3">Explore the Tournament</h2>
+            <p class="font-italic text-center text-slate-500 text-lg mb-14">Everything you need for World Cup 2026</p>
             
-            <!-- Feature Cards Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <a href="pages/bracket.html" class="feature-card p-8 block no-underline">
                     <div class="text-4xl mb-4">🏆</div>
@@ -324,7 +317,6 @@
         </div>
     </section>
 
-    <!-- ============ FOOTER ============ -->
     <footer class="bg-navy text-slate-400 text-center py-10 text-sm">
         <p>© 2026 worldcupgolazo — where every match tells a story</p>
     </footer>
@@ -336,10 +328,28 @@
             document.getElementById('darkToggle').textContent = isDark ? '☀️' : '🌙';
             localStorage.setItem('darkMode', isDark);
         }
+        
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark');
             document.getElementById('darkToggle').textContent = '☀️';
         }
+        
+        const navbar = document.querySelector('.navbar');
+        const transitionPoint = document.querySelector('.transition-gradient');
+        
+        function updateNavbar() {
+            if (!transitionPoint) return;
+            const transitionTop = transitionPoint.getBoundingClientRect().top;
+            if (transitionTop < window.innerHeight * 0.5) {
+                navbar.classList.add('light');
+            } else {
+                navbar.classList.remove('light');
+            }
+        }
+        
+        window.addEventListener('scroll', updateNavbar);
+        window.addEventListener('resize', updateNavbar);
+        updateNavbar();
     </script>
 </body>
 </html>
