@@ -3,312 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>worldcupgolazo | where every match tells a story</title>
-    <meta name="description" content="World Cup 2026 - Live bracket simulator, group standings, travel guide, and more. THE WORLD PLAYS NOW.">
+    <title>worldcupgolazo | THE WORLD PLAYS NOW</title>
+    <meta name="description" content="Simulate the 2026 FIFA World Cup bracket. Discover untold stories. Feel the carnival.">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        italic: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        gold: '#FACC15',
+                        'gold-dark': '#EAB308',
+                        navy: '#0F172A',
+                        'deep-blue': '#1E3A5F',
+                        teal: '#14B8A6',
+                        cream: '#FAF7F0',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --font-display: 'Bebas Neue', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            --font-italic: 'Playfair Display', serif;
-            --gold: #D4AF37;
-            --gold-light: #F5E07B;
-            --gold-dark: #B8960F;
-            --bg-primary: #FFFAF5;
-            --bg-secondary: #FFFFFF;
-            --text-primary: #1A1A1A;
-            --text-secondary: #5A5A5A;
-            --border: #E8E3D4;
-            --shadow: 0 4px 20px rgba(0,0,0,0.06);
-            --shadow-hover: 0 12px 32px rgba(0,0,0,0.10);
-            --radius: 20px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --accent-blue: #2B5F8A;
-            --accent-coral: #E8725A;
-            --accent-teal: #1A8A7D;
+        /* Gold gradient text for hero */
+        .text-gold-gradient {
+            background: linear-gradient(90deg, #FFFFFF 0%, #FACC15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        .dark {
-            --bg-primary: #0F0F1A;
-            --bg-secondary: #1A1A2E;
-            --text-primary: #F0EEE6;
-            --text-secondary: #B0AFA0;
-            --border: #2A2A40;
-            --shadow: 0 4px 20px rgba(0,0,0,0.4);
-            --shadow-hover: 0 12px 32px rgba(0,0,0,0.6);
+        
+        /* Glassmorphism card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: var(--transition);
-            overflow-x: hidden;
+        
+        /* Floating icons animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
-
-        /* Navbar */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 250, 245, 0.92);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 14px 32px;
-            transition: var(--transition);
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
-        .dark .navbar { background: rgba(15, 15, 26, 0.92); }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
+        .floating-icon {
+            position: absolute;
+            opacity: 0.06;
+            pointer-events: none;
+            font-size: 6rem;
         }
-
-        .nav-logo {
-            font-family: var(--font-display);
-            font-weight: 400;
-            font-size: 2rem;
-            color: var(--gold);
-            text-decoration: none;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .nav-links { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: var(--transition);
+        .float-1 { animation: float 8s ease-in-out infinite; top: 10%; left: 5%; }
+        .float-2 { animation: floatSlow 10s ease-in-out infinite; top: 20%; right: 8%; }
+        .float-3 { animation: float 9s ease-in-out infinite; bottom: 30%; left: 10%; }
+        .float-4 { animation: floatSlow 11s ease-in-out infinite; bottom: 20%; right: 5%; }
+        
+        /* Smooth gradient transition */
+        .hero-gradient {
+            background: linear-gradient(180deg, #0F172A 0%, #1E3A5F 40%, #134E4A 70%, #0F172A 100%);
             position: relative;
         }
-        .nav-links a:hover { color: var(--accent-coral); }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0;
-            width: 0; height: 2px; background: var(--accent-coral);
-            transition: var(--transition);
+        .hero-gradient::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 60%;
+            background: radial-gradient(ellipse, rgba(250,204,21,0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .nav-links a:hover::after { width: 100%; }
-
-        .dark-toggle {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: var(--transition);
-            color: var(--text-primary);
+        
+        /* Transition to light section */
+        .transition-gradient {
+            background: linear-gradient(180deg, #0F172A 0%, #1A2744 30%, #2D3A54 60%, #8B9DAF 85%, #FAF7F0 100%);
+            height: 160px;
         }
-        .dark-toggle:hover { border-color: var(--accent-coral); transform: translateY(-2px); }
-
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 100px 24px 80px;
-            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(212,175,55,0.08) 50%, var(--bg-primary) 100%);
-        }
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: clamp(5rem, 12vw, 9rem);
-            font-weight: 400;
-            text-transform: uppercase;
-            line-height: 0.9;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-        .hero-title span { color: var(--gold); }
-        .hero-slogan {
-            font-family: var(--font-italic);
-            font-style: italic;
-            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-            color: var(--accent-teal);
-            margin-bottom: 36px;
-        }
-        .cta-button {
-            display: inline-block;
-            background: var(--accent-coral);
-            color: #FFFFFF;
-            padding: 16px 44px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: 0 8px 24px rgba(232,114,90,0.3);
-            letter-spacing: 0.5px;
-        }
-        .cta-button:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 14px 32px rgba(232,114,90,0.5); }
-
-        /* Preview Section */
-        .preview-section { max-width: 1400px; margin: 0 auto; padding: 60px 24px; }
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .section-subtitle {
-            font-family: var(--font-italic);
-            font-style: italic;
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 44px;
-            font-size: 1.1rem;
-        }
-        .preview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 28px;
-        }
-
-        .preview-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius);
-            padding: 32px 28px;
-            text-decoration: none;
-            color: inherit;
-            border: 1px solid var(--border);
-            transition: var(--transition);
-            box-shadow: var(--shadow);
+        
+        /* Light section with depth */
+        .light-section {
+            background: linear-gradient(180deg, #FAF7F0 0%, #F5EFE6 50%, #EFE7DA 100%);
             position: relative;
-            overflow: hidden;
         }
-        .preview-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
-        .preview-card::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            width: 100%; height: 5px;
-            transition: var(--transition);
+        .light-section::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            width: 40%;
+            height: 50%;
+            background: radial-gradient(ellipse, rgba(30,58,95,0.03) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .preview-card:nth-child(1)::before { background: var(--gold); }
-        .preview-card:nth-child(2)::before { background: var(--accent-blue); }
-        .preview-card:nth-child(3)::before { background: var(--accent-teal); }
-        .preview-card:nth-child(4)::before { background: var(--accent-coral); }
-        .preview-card:nth-child(5)::before { background: var(--gold-dark); }
-        .preview-card:nth-child(6)::before { background: var(--accent-blue); }
-
-        .card-icon { font-size: 2.8rem; margin-bottom: 14px; }
-        .preview-card h3 {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-            letter-spacing: 0.5px;
+        .light-section::after {
+            content: '';
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            width: 35%;
+            height: 40%;
+            background: radial-gradient(ellipse, rgba(250,204,21,0.04) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .preview-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; }
-
-        footer {
-            text-align: center;
-            padding: 36px;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
-            margin-top: 40px;
-            font-size: 0.9rem;
+        
+        /* Card styles */
+        .feature-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(250,204,21,0.15);
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
-
-        @media (max-width: 768px) {
-            .nav-container { flex-direction: column; align-items: flex-start; }
-            .nav-links { gap: 12px; }
-            .hero-title { font-size: 3.5rem; }
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.10);
+            border-color: rgba(250,204,21,0.4);
         }
     </style>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">worldcupgolazo</a>
-            <div class="nav-links">
-                <a href="pages/bracket.html">Bracket</a>
-                <a href="pages/groups.html">Groups</a>
-                <a href="pages/travel.html">Travel</a>
-                <a href="pages/history.html">History</a>
-                <a href="pages/quiz.html">Quiz</a>
-                <a href="pages/predictions.html">Predictions</a>
-                <button class="dark-toggle" onclick="toggleDark()">
-                    <span id="darkIcon">🌙</span> Dark
-                </button>
+<body class="font-body antialiased">
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero-gradient min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-6">
+        
+        <!-- Floating Icons -->
+        <div class="floating-icon float-1">⚽</div>
+        <div class="floating-icon float-2">🌴</div>
+        <div class="floating-icon float-3">🎉</div>
+        <div class="floating-icon float-4">🌊</div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center max-w-4xl mx-auto">
+            <h1 class="font-display text-7xl md:text-9xl uppercase tracking-tight leading-none mb-4 text-gold-gradient">
+                THE WORLD<br>PLAYS NOW.
+            </h1>
+            <p class="font-italic text-lg md:text-xl text-slate-300 mb-8 tracking-wide">
+                Simulate the bracket. Discover untold stories. Feel the carnival.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="pages/bracket.html" class="inline-block bg-gradient-to-r from-gold to-gold-dark text-navy font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:shadow-gold/30 transition-all hover:scale-105" style="box-shadow: 0 0 40px rgba(250,204,21,0.3);">
+                    🏆 Launch Simulator
+                </a>
+                <a href="pages/travel.html" class="inline-block border border-white/20 text-white/90 font-semibold px-8 py-4 rounded-full text-lg backdrop-blur-sm hover:bg-white/10 transition-all">
+                    ✈️ Travelling to World Cup?
+                </a>
             </div>
         </div>
-    </nav>
+        
+        <!-- Stats Card -->
+        <div class="glass-card mt-16 px-10 py-6 flex flex-wrap justify-center gap-8 md:gap-12 relative z-10">
+            <div class="text-center">
+                <div class="font-display text-4xl md:text-5xl text-gold">48</div>
+                <div class="text-slate-400 text-xs uppercase tracking-widest mt-1">Teams</div>
+            </div>
+            <div class="text-center">
+                <div class="font-display text-4xl md:text-5xl text-gold">104</div>
+                <div class="text-slate-400 text-xs uppercase tracking-widest mt-1">Matches</div>
+            </div>
+            <div class="text-center">
+                <div class="font-display text-4xl md:text-5xl text-gold">16</div>
+                <div class="text-slate-400 text-xs uppercase tracking-widest mt-1">Host Cities</div>
+            </div>
+            <div class="text-center">
+                <div class="font-display text-4xl md:text-5xl text-gold">1</div>
+                <div class="text-slate-400 text-xs uppercase tracking-widest mt-1">Champion</div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-6 text-slate-500 text-sm animate-bounce">
+            ↓ Scroll
+        </div>
+    </section>
 
-    <main>
-        <section class="hero">
-            <h1 class="hero-title">THE WORLD<br><span>PLAYS NOW</span></h1>
-            <p class="hero-slogan">where every match tells a story</p>
-            <a href="pages/bracket.html" class="cta-button">🏆 Start Simulation</a>
-        </section>
+    <!-- ============ GRADIENT TRANSITION ============ -->
+    <div class="transition-gradient"></div>
 
-        <section class="preview-section">
-            <h2 class="section-title">Explore the Tournament</h2>
-            <p class="section-subtitle">Everything you need for World Cup 2026</p>
-            <div class="preview-grid">
-                <a href="pages/bracket.html" class="preview-card">
-                    <div class="card-icon">🏆</div>
-                    <h3>Bracket Simulator</h3>
-                    <p>Simulate from Round of 32 to the Final. Click teams to advance through every knockout stage.</p>
+    <!-- ============ LIGHT SECTION ============ -->
+    <section class="light-section py-24 px-6 relative">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <h2 class="font-display text-5xl md:text-6xl text-center text-navy uppercase tracking-wide mb-3">
+                Explore the Tournament
+            </h2>
+            <p class="font-italic text-center text-slate-500 text-lg mb-14">
+                Everything you need for World Cup 2026
+            </p>
+            
+            <!-- Feature Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="pages/bracket.html" class="feature-card p-8 block">
+                    <div class="text-4xl mb-4">🏆</div>
+                    <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">Bracket Simulator</h3>
+                    <p class="text-slate-500 text-sm">Simulate from Round of 32 to the Final. Click teams to advance through every knockout stage.</p>
                 </a>
-                <a href="pages/groups.html" class="preview-card">
-                    <div class="card-icon">📊</div>
-                    <h3>Group Standings</h3>
-                    <p>All 12 groups with 48 teams. Points, goal difference, and full standings.</p>
+                <a href="pages/groups.html" class="feature-card p-8 block">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">Group Standings</h3>
+                    <p class="text-slate-500 text-sm">All 12 groups with 48 teams. Points, goal difference, and full standings.</p>
                 </a>
-                <a href="pages/travel.html" class="preview-card">
-                    <div class="card-icon">🌍</div>
-                    <h3>Travel Guide</h3>
-                    <p>16 host cities across Canada, Mexico, and the USA. Stadiums, hotels, flights.</p>
+                <a href="pages/travel.html" class="feature-card p-8 block">
+                    <div class="text-4xl mb-4">🌍</div>
+                    <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">Travel Guide</h3>
+                    <p class="text-slate-500 text-sm">16 host cities across Canada, Mexico, and the USA. Stadiums, hotels, flights.</p>
                 </a>
-                <a href="pages/history.html" class="preview-card">
-                    <div class="card-icon">📚</div>
-                    <h3>World Cup History</h3>
-                    <p>Timeline of champions, legendary players, and fascinating facts.</p>
+                <a href="pages/history.html" class="feature-card p-8 block">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">World Cup History</h3>
+                    <p class="text-slate-500 text-sm">Timeline of champions, legendary players, and fascinating facts.</p>
                 </a>
-                <a href="pages/quiz.html" class="preview-card">
-                    <div class="card-icon">🧠</div>
-                    <h3>Quiz Challenge</h3>
-                    <p>Test your knowledge with Basic, Intermediate, and Advanced levels.</p>
+                <a href="pages/quiz.html" class="feature-card p-8 block">
+                    <div class="text-4xl mb-4">🧠</div>
+                    <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">Quiz Challenge</h3>
+                    <p class="text-slate-500 text-sm">Test your knowledge with Basic, Intermediate, and Advanced levels.</p>
                 </a>
-                <a href="pages/predictions.html" class="preview-card">
-                    <div class="card-icon">🔮</div>
-                    <h3>2026 Predictions</h3>
-                    <p>Expert analysis and knockout stage predictions for the tournament.</p>
+                <a href="pages/predictions.html" class="feature-card p-8 block">
+                    <div class="text-4xl mb-4">🔮</div>
+                    <h3 class="font-display text-2xl text-navy uppercase tracking-wide mb-2">2026 Predictions</h3>
+                    <p class="text-slate-500 text-sm">Expert analysis and knockout stage predictions for the tournament.</p>
                 </a>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-navy text-slate-400 text-center py-10 text-sm">
         <p>© 2026 worldcupgolazo — where every match tells a story</p>
     </footer>
 
-    <script>
-        function toggleDark() {
-            document.body.classList.toggle('dark');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
-            updateDarkIcon();
-        }
-        function updateDarkIcon() {
-            const icon = document.getElementById('darkIcon');
-            icon.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-        }
-        if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
-        updateDarkIcon();
-    </script>
 </body>
 </html>
