@@ -131,7 +131,7 @@
         .feature-card:nth-child(5) { border-top: 4px solid #EAB308; }
         .feature-card:nth-child(6) { border-top: 4px solid #1E3A5F; }
         
-        /* Navbar */
+        /* Navbar - always dark, matches dark mode toggle */
         .navbar {
             position: fixed;
             top: 0;
@@ -145,20 +145,33 @@
             transition: all 0.4s ease;
         }
         
-        .navbar.light {
+        body:not(.dark) .navbar {
             background: rgba(250, 247, 240, 0.92);
-            border-bottom: 1px solid rgba(0,0,0,0.08);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
         }
-        .navbar.light a {
+        body:not(.dark) .navbar .nav-link {
             color: #334155 !important;
         }
-        .navbar.light a:hover {
+        body:not(.dark) .navbar .nav-link:hover {
             color: #1E3A5F !important;
         }
-        .navbar.light .dark-toggle-btn {
-            background: rgba(0,0,0,0.06);
-            border-color: rgba(0,0,0,0.12);
-            color: #1E3A5F;
+        
+        /* Logo - always gold with depth */
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: linear-gradient(180deg, #FDE68A 0%, #FACC15 30%, #EAB308 60%, #B8960F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 6px rgba(250,204,21,0.4));
+            transition: all 0.3s ease;
+        }
+        .nav-logo:hover {
+            filter: drop-shadow(0 3px 10px rgba(250,204,21,0.6));
         }
         
         .dark-toggle-btn {
@@ -178,6 +191,32 @@
         .dark-toggle-btn:hover {
             background: rgba(250,204,21,0.15);
             border-color: rgba(250,204,21,0.4);
+        }
+        body:not(.dark) .dark-toggle-btn {
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.12);
+            color: #1E3A5F;
+        }
+
+        /* Launch Simulator button - navy text always, even in dark mode */
+        .cta-primary {
+            background: linear-gradient(180deg, #FACC15 0%, #EAB308 100%);
+            color: #0F172A !important;
+            font-weight: 700;
+            padding: 16px 44px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(250,204,21,0.3);
+            display: inline-block;
+        }
+        .cta-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(250,204,21,0.5);
+        }
+        body.dark .cta-primary {
+            color: #0F172A !important;
         }
 
         /* Dark Mode */
@@ -200,16 +239,15 @@
         body.dark .transition-gradient {
             background: linear-gradient(180deg, #0F172A 0%, #1A2744 25%, #1A1A2E 50%, #162032 75%, #1A1A2E 100%) !important;
         }
-        body.dark .navbar.light {
-            background: rgba(26, 26, 46, 0.92) !important;
-            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+        body.dark .navbar {
+            background: rgba(15, 23, 42, 0.92);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        body.dark .navbar.light a { color: #CBD5E1 !important; }
-        body.dark .navbar.light a:hover { color: #FACC15 !important; }
-        body.dark .navbar.light .dark-toggle-btn {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.15);
-            color: #FACC15;
+        body.dark .nav-link {
+            color: #CBD5E1 !important;
+        }
+        body.dark .nav-link:hover {
+            color: #FACC15 !important;
         }
     </style>
 </head>
@@ -217,14 +255,14 @@
 
     <nav class="navbar">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
-            <a href="index.html" class="font-display text-2xl text-gold tracking-wider uppercase no-underline">worldcupgolazo</a>
+            <a href="index.html" class="nav-logo">worldcupgolazo</a>
             <div class="flex items-center gap-6">
-                <a href="pages/bracket.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Bracket</a>
-                <a href="pages/groups.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Groups</a>
-                <a href="pages/travel.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Travel</a>
-                <a href="pages/history.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">History</a>
-                <a href="pages/quiz.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Quiz</a>
-                <a href="pages/predictions.html" class="text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Predictions</a>
+                <a href="pages/bracket.html" class="nav-link text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Bracket</a>
+                <a href="pages/groups.html" class="nav-link text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Groups</a>
+                <a href="pages/travel.html" class="nav-link text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Travel</a>
+                <a href="pages/history.html" class="nav-link text-slate-300 hover:text-gold text-sm font-medium no-underline transition">History</a>
+                <a href="pages/quiz.html" class="nav-link text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Quiz</a>
+                <a href="pages/predictions.html" class="nav-link text-slate-300 hover:text-gold text-sm font-medium no-underline transition">Predictions</a>
                 <button onclick="toggleDark()" class="dark-toggle-btn" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
             </div>
         </div>
@@ -244,10 +282,10 @@
                 Simulate the bracket. Discover untold stories. Feel the carnival.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="pages/bracket.html" class="inline-block bg-gradient-to-r from-gold to-gold-dark text-navy font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:shadow-gold/30 transition-all hover:scale-105" style="box-shadow: 0 0 40px rgba(250,204,21,0.3);">
+                <a href="pages/bracket.html" class="cta-primary">
                     🏆 Launch Simulator
                 </a>
-                <a href="pages/travel.html" class="inline-block border border-white/20 text-white/90 font-semibold px-8 py-4 rounded-full text-lg backdrop-blur-sm hover:bg-white/10 transition-all">
+                <a href="pages/travel.html" class="inline-block border border-white/20 text-white/90 font-semibold px-8 py-4 rounded-full text-lg backdrop-blur-sm hover:bg-white/10 transition-all no-underline">
                     ✈️ Travelling to World Cup?
                 </a>
             </div>
@@ -333,23 +371,6 @@
             document.body.classList.add('dark');
             document.getElementById('darkToggle').textContent = '☀️';
         }
-        
-        const navbar = document.querySelector('.navbar');
-        const transitionPoint = document.querySelector('.transition-gradient');
-        
-        function updateNavbar() {
-            if (!transitionPoint) return;
-            const transitionTop = transitionPoint.getBoundingClientRect().top;
-            if (transitionTop < window.innerHeight * 0.5) {
-                navbar.classList.add('light');
-            } else {
-                navbar.classList.remove('light');
-            }
-        }
-        
-        window.addEventListener('scroll', updateNavbar);
-        window.addEventListener('resize', updateNavbar);
-        updateNavbar();
     </script>
 </body>
 </html>
